@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 3606ecfa0e1b3bf614cc4668355493553067929eddf2786917e53e15db06ce12
 
 build:
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
   noarch: python
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - numpy >=1.19.1
     - outdated >=0.2.0
     - pandas >=1.1.0
@@ -35,6 +35,8 @@ requirements:
     - pytorch_scatter
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - wilds
 
